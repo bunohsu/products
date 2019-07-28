@@ -1,4 +1,21 @@
+#檢查檔案在不在
+import os #operating system
+if os.path.isfile('products.csv'):
+	print('yeah! 找到檔案了!')
+	#可以把讀取檔案10~18行丟進來第5行，但是要記的縮排，因為要在if內才是一個group
+else:
+	print('找不到檔案.....')
 
+
+#讀取檔案
+products = []
+with open('products.csv', 'r', encoding='utf-8') as f: #要記得加入編碼(encoding)，要不然會錯亂
+	for line in f:
+		if '商品,價格' in line:                #不想要顯示第一的商品,價格，所以使用continue功能跳過第一行
+			continue 
+		name, price = line.strip().split(',') #如果檔案內一行有多個項目，前面就要相對應幾個變數，另外要先strip在split
+		products.append ([name, price])       #把變數丟到products清單內
+print(products)
 
 
 #記帳程式專案 二維清單(就是清單中還有一個清單，一個清單裡面有2個東西(名字+價格))
@@ -28,14 +45,3 @@ with open('products.csv', 'w', encoding='utf-8') as f: #建立打開一個produc
 	f.write('商品,價格\n') #建立標題，在csv裡逗號是下一格，加\n會變下一行
 	for p in products:
 		f.write(p[0] + ',' + str(p[1]) + '\n') #寫入f，並把字串加起來，這邊p[1]不是字串，所以要再轉成字串
-
-
-#讀取檔案
-products = []
-with open('products.csv', 'r', encoding='utf-8') as f: #要記得加入編碼(encoding)，要不然會錯亂
-	for line in f:
-		if '商品,價格' in line:                #不想要顯示第一的商品,價格，所以使用continue功能跳過第一行
-			continue 
-		name, price = line.strip().split(',') #如果檔案內一行有多個項目，前面就要相對應幾個變數，另外要先strip在split
-		products.append ([name, price])       #把變數丟到products清單內
-print(products)
